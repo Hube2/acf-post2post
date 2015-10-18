@@ -11,7 +11,7 @@
 		
 		Automatic creation of 2 way post relationship and post object fields
 		
-		This plugin will not provide any functionality if ACF5 is not installed
+		This plugin will not provide any functionality if ACF is not installed
 		
 	*/
 	
@@ -176,8 +176,6 @@
 			if ($found) {
 				return $cache;
 			}
-			//echo 'after group cache'; die;
-			wp_cache_delete('get_field_groups', 'acf');
 			$args = array('post_id' => $post_id);
 			$field_groups = acf_get_field_groups($args);
 			$count = count($field_groups);
