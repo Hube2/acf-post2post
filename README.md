@@ -4,6 +4,8 @@ Creates two way relationships in Advanced Custom Fields
 
 This plugin will provide no functionality if ACF is not installed and active.
 
+[Questions? Bugs? Comments?](https://github.com/Hube2/acf-post2post/issues)
+
 ## How to use
 
 * Create a relationship or post object field.
