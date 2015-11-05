@@ -25,14 +25,17 @@
 		public function __construct() {
 			register_activation_hook(__FILE__, array($this, 'activate'));
 			register_deactivation_hook(__FILE__, array($this, 'deactivate'));
-			add_filter('acf/update_value/type=relationship', array($this, 'update_relationship_field'), 10, 3);
-			add_filter('acf/update_value/type=post_object', array($this, 'update_relationship_field'), 10, 3);
+			add_filter('acf/update_value/type=relationship', array($this, 'update_relationship_field'), 11, 3);
+			add_filter('acf/update_value/type=post_object', array($this, 'update_relationship_field'), 11, 3);
 		} // end public function __construct
 		
 		public function update_relationship_field($value, $post_id, $field) {
 			$field_name = $field['name'];
+			//echo $field_name; die;
+			//echo $post_id; die; 
+			//echo get_post_meta($post_id, $field_name, true); die;
 			$previous = maybe_unserialize(get_post_meta($post_id, $field_name, true));
-			if ($previous == '') {
+			if ($previous === '') {
 				$previous = array();
 			}
 			if (!is_array($previous)) {
@@ -47,6 +50,7 @@
 			if (!is_array($new)) {
 				$new = array($new);
 			}
+			//echo '<pre>'; print_r($previous); print_r($new); die;
 			if (count($previous)) {
 				foreach ($previous as $related_id) {
 					if (!in_array($related_id, $new)) {
@@ -106,6 +110,7 @@
 				$related_id = the relationship to add 
 			*/
 			$field = $this->get_field($post_id, $field_name);
+			//echo '<pre>'; print_r($field); die;
 			if (!$field) {
 				// field not found attached to this post
 				return;
@@ -152,11 +157,12 @@
 			$found = false;
 			$field_groups = $this->post_field_groups($post_id);
 			$field_group_count = count($field_groups);
+			//echo '<pre>'; print_r($field_groups); die;
 			for ($g=0; $g<$field_group_count; $g++) {
 				$field_count = count($field_groups[$g]['fields']);
 				for ($f=0; $f<$field_count; $f++) {
 					if ($field_groups[$g]['fields'][$f]['name'] == $field_name &&
-						in_array($field_groups[$g]['fields'][$f]['name'], array('relationship', 'post_object'))) {
+						in_array($field_groups[$g]['fields'][$f]['type'], array('relationship', 'post_object'))) {
 						$field = $field_groups[$g]['fields'][$f];
 						$found == true;
 						break;
@@ -178,10 +184,12 @@
 			}
 			$args = array('post_id' => $post_id);
 			$field_groups = acf_get_field_groups($args);
+			//echo '<pre>'; print_r($field_groups); die;
 			$count = count($field_groups);
 			for ($i=0; $i<$count; $i++) {
 				$field_groups[$i]['fields'] = acf_get_fields($field_groups[$i]['key']);
 			}
+			//echo '<pre>'; print_r($field_groups); die;
 			wp_cache_set('post_field_groups-'.$post_id, $field_groups, 'acfpost2post');
 			return $field_groups;
 		} // end public function post_field_groups
