@@ -149,7 +149,8 @@
 		public function get_field($post_id, $field_name) {
 			$field = false;
 			$found = false;
-			$cache = wp_cache_get('get_field-'.$post_id, 'acfpost2post', false, $found);
+			$cache_key = 'get_field-'.$post_id.'-'.$field_name;
+			$cache = wp_cache_get($cache_key, 'acfpost2post', false, $found);
 			if ($found) {
 				return $cache;
 			}
@@ -172,7 +173,7 @@
 					break;
 				}
 			} // end for $g
-			wp_cache_set('get_field-'.$post_id, $field, 'acfpost2post');
+			wp_cache_set($cache_key, $field, 'acfpost2post');
 			return $field;
 		} // end public function get_field
 		
