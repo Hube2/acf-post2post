@@ -4,7 +4,7 @@
 		Plugin Name: Post2Post for ACF
 		Plugin URI: https://github.com/Hube2/acf-post2post
 		Description: Two way relationship fields
-		Version: 0.0.1
+		Version: 0.1.0
 		Author: John A. Huebner II
 		Author URI: https://github.com/Hube2
 		License: GPL v2 or later
@@ -137,7 +137,24 @@
 			if (($max_posts == 0 || $count($value) < $max_posts) &&
 					!in_array($related_id, $value)) {
 				$value[] = $related_id;
-			}
+			} elseif ($max_posts > 0) {
+				$overwrite_settings = apply_filters('acf-post2post/overwrite-settings', array());
+				if (isset($overwrite_settings[$field_name]) && 
+					isset($overwrite_settings[$field_name]['overwrite']) &&
+					$overwrite_settings[$field_name]['overwrite']) {
+					$type = 'first';
+					if (isset($overwrite_settings[$field_name]['type']) && 
+							in_array(strtolower($overwrite_settings[$field_name]['type']), array('first', 'last'))) {
+						$type = strtolower($overwrite_settings[$field_name]['type']);
+					}
+					if ($type == 'first') {
+						$remove = array_shift($value);
+					} else {
+						$remove = array_pop($value);
+					}
+					$value[] = $related_id;
+				} // end field overwrite
+			} // end if else
 			if (!$array_value) {
 				$value = $value[0];
 			}

@@ -21,4 +21,26 @@ If a post is removed from a relationship then the post being removed will also b
 If a post object field is being used
 
 * If it allows multiple values then it will work the same way that relationship fields work.
-* If it does not allow multiple values and the related post already contains a value that value will not be overwritten by the new value. 
+* If it does not allow multiple values and the related post already contains a value see *Overwrite Settings*
+
+## Overwrite Settings
+
+If the field in a related post, whether it is a post object field that only allows 1 value or a relationship field that has a maximum number of related posts, if the field in the related post already has the maximum number of values allowed then, by default, a new value will not be added. You can override this default by specifying overwrite settings.
+
+How to add overwrite settings
+```
+add_filter('acf-post2post/overwrite-settings', 'my_overwrite_settings');
+function my_overwrite_settings($settings) {
+  $settings['field_name'] = array(
+	  'overwrite' => true,
+		'type' => 'first'
+	);
+	return $settings;
+}
+```
+Each element of the $settings array is an array. The index of the array is the field that you want to
+specify settings for. Each field can have 2 arguments.  
+`overwrite` = true/false or 1/0. If set to true
+or 1 then new values will overwrite older values. The default value of this setting is false.  
+`type` = 'first' or 'last'. Which of the existing values should be removed, the first one added or the last. The default value is 'first'.  
+after a value is removed from the existing list the new value is added to the end of the list.
