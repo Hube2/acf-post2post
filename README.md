@@ -8,6 +8,11 @@ This plugin does not create a new type of field or any admin interface. This plu
 existing ACF Relationship and Post Object fields work bi-directionaly, automatically updating the relationship field on
 the other end of the relationship.
 
+A couple of months after I created this plugin the developer posted a tutorial on how to do this using a filter.
+That example basically does the same thing except it seems to require the fields to have the same key as well
+as the same name where this plugin will let you mix fields as long as they are of a type that allows a relationship
+and they have the same name.
+
 [Questions? Bugs? Comments?](https://github.com/Hube2/acf-post2post/issues)
 
 ## How to use
@@ -49,3 +54,14 @@ specify settings for. Each field can have 2 arguments.
 or 1 then new values will overwrite older values. The default value of this setting is false.  
 `type` = 'first' or 'last'. Which of the existing values should be removed, the first one added or the last. The default value is 'first'.  
 after a value is removed from the existing list the new value is added to the end of the list.
+
+## So why do this?
+
+I did not actually create this pluging to make it easier on the person that's managing a site, although that is
+an added side benifit. The main reason for implementing some way to make relationship and post object fields
+biderectional is the doing reverse relationship queries for ACF is a huge PITA. I completely understand why this is
+not built into ACF. If it was built in then Elliot would need to deal with relationship fields in repeaters and
+flex field and nested repeaters. And then there is the problem of relationships with different post types and fields
+with different names. It would be a deep dark rabbit hole from which I don't think he'd return. There are too many
+parameters. On the other hand, filters and actions can be created with a finite number of options to do the work that's
+needed. This is just my interpretation of using those actions and filters.
