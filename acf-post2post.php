@@ -4,7 +4,7 @@
 		Plugin Name: Post2Post for ACF
 		Plugin URI: https://github.com/Hube2/acf-post2post
 		Description: Two way relationship fields
-		Version: 0.1.1
+		Version: 1.0.0
 		Author: John A. Huebner II
 		Author URI: https://github.com/Hube2
 		GitHub Plugin URI: https://github.com/Hube2/acf-post2post
@@ -28,7 +28,19 @@
 			register_deactivation_hook(__FILE__, array($this, 'deactivate'));
 			add_filter('acf/update_value/type=relationship', array($this, 'update_relationship_field'), 11, 3);
 			add_filter('acf/update_value/type=post_object', array($this, 'update_relationship_field'), 11, 3);
+			add_filter('jh_plugins_list', array($this, 'meta_box_data'));
 		} // end public function __construct
+			
+			function meta_box_data($plugins=array()) {
+				
+				$plugins[] = array(
+					'title' => 'Post2Post for ACF',
+					'screens' => array('acf-field-group', 'edit-acf-field-group'),
+					'doc' => 'https://github.com/Hube2/acf-post2post'
+				);
+				return $plugins;
+				
+			} // end function meta_box
 		
 		public function update_relationship_field($value, $post_id, $field) {
 			$field_name = $field['name'];
@@ -223,4 +235,47 @@
 		
 	} // end class acf_post2post
 	
+	if (!function_exists('jh_plugins_list_meta_box')) {
+		function jh_plugins_list_meta_box() {
+			$plugins = apply_filters('jh_plugins_list', array());
+				
+			$id = 'plugins-by-john-huebner';
+			$title = '<a style="text-decoration: none; font-size: 1em;" href="https://github.com/Hube2" target="_blank">Plugins by John Huebner</a>';
+			$callback = 'show_blunt_plugins_list_meta_box';
+			$screens = array();
+			foreach ($plugins as $plugin) {
+				$screens = array_merge($screens, $plugin['screens']);
+			}
+			$context = 'side';
+			$priority = 'low';
+			add_meta_box($id, $title, $callback, $screens, $context, $priority);
+			
+			
+		} // end function jh_plugins_list_meta_box
+		add_action('add_meta_boxes', 'jh_plugins_list_meta_box');
+			
+		function show_blunt_plugins_list_meta_box() {
+			$plugins = apply_filters('jh_plugins_list', array());
+			?>
+				<p style="margin-bottom: 0;">Thank you for using my plugins</p>
+				<ul style="margin-top: 0; margin-left: 1em;">
+					<?php 
+						foreach ($plugins as $plugin) {
+							?>
+								<li style="list-style-type: disc; list-style-position:">
+									<?php 
+										echo $plugin['title'];
+										if ($plugin['doc']) {
+											?> <a href="<?php echo $plugin['doc']; ?>" target="_blank">Documentation</a><?php 
+										}
+									?>
+								</li>
+							<?php 
+						}
+					?>
+				</ul>
+				<p><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=hube02%40earthlink%2enet&lc=US&item_name=Donation%20for%20WP%20Plugins%20I%20Use&no_note=0&cn=Add%20special%20instructions%20to%20the%20seller%3a&no_shipping=1&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted" target="_blank">Please consider making a small donation.</a></p><?php 
+		}
+	} // end if !function_exists
+
 ?>
