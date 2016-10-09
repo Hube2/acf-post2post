@@ -65,3 +65,15 @@ flex field and nested repeaters. And then there is the problem of relationships 
 with different names. It would be a deep dark rabbit hole from which I don't think he'd return. There are too many
 parameters. On the other hand, filters and actions can be created with a finite number of options to do the work that's
 needed. This is just my interpretation of using those actions and filters.
+
+#### Automatic Updates
+Install [GitHub Updater](https://github.com/afragen/github-updater) on your site if you want to recieve automatic
+updates for this plugin.
+
+#### Remove Nag
+You may notice that I've started adding a little nag to my plugins. It's just a box on some pages that lists my
+plugins that you're using with a request do consider making a donation for using them. If you want to disable them
+add the following filter to your functions.php file.
+```
+add_filter('remove_hube2_nag', '__return_true');
+```
