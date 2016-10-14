@@ -1,6 +1,6 @@
 # Post 2 Post for ACF
 
-Creates two way relationships in Advanced Custom Fields
+Creates two way (bidirectional) relationships in Advanced Custom Fields
 
 This plugin will provide no functionality if ACF is not installed and active.
 
