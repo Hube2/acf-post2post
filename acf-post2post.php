@@ -4,7 +4,7 @@
 		Plugin Name: Post2Post for ACF
 		Plugin URI: https://github.com/Hube2/acf-post2post
 		Description: Two way relationship fields
-		Version: 1.2.0
+		Version: 1.2.1
 		Author: John A. Huebner II
 		Author URI: https://github.com/Hube2
 		GitHub Plugin URI: https://github.com/Hube2/acf-post2post
@@ -165,6 +165,8 @@
 					} else {
 						$remove = array_pop($value);
 					}
+					// remove this relationship from the post that was just removed
+					$this->remove_relationship(intval($remove), $field_name, $post_id);
 					$value[] = $related_id;
 				} // end field overwrite
 			} // end if else
