@@ -64,11 +64,12 @@ not built into ACF. If it was built in then Elliot would need to deal with relat
 flex field and nested repeaters. And then there is the problem of relationships with different post types and fields
 with different names. It would be a deep dark rabbit hole from which I don't think he'd return. There are too many
 parameters. On the other hand, filters and actions can be created with a finite number of options to do the work that's
-needed. This is just my interpretation of using those actions and filters.
+needed. This is just
 
 #### Automatic Updates
-Install [GitHub Updater](https://github.com/afragen/github-updater) on your site if you want to recieve automatic
-updates for this plugin.
+Github updater support has been removed. This plugin has been published to WordPress.Org here
+https://wordpress.org/plugins/post-2-post-for-acf/. If you are having problems updating please
+try installing from there. 
 
 #### Remove Nag
 You may notice that I've started adding a little nag to my plugins. It's just a box on some pages that lists my
