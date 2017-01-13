@@ -24,21 +24,32 @@
 		public function __construct() {
 			register_activation_hook(__FILE__, array($this, 'activate'));
 			register_deactivation_hook(__FILE__, array($this, 'deactivate'));
-			add_filter('acf/update_value/type=relationship', array($this, 'update_relationship_field'), 11, 3);
-			add_filter('acf/update_value/type=post_object', array($this, 'update_relationship_field'), 11, 3);
+			add_action('plugins_loaded', array($this, 'plugins_loaded'));
 			add_filter('jh_plugins_list', array($this, 'meta_box_data'));
 		} // end public function __construct
+		
+		public function plugins_loaded() {
+			if (!function_exists('acf_get_setting')) {
+				return;
+			}
+			$acf_version = acf_get_setting('version');
+			if (version_compare($acf_version, '5.0.0', '<')) {
+				return;
+			}
+			add_filter('acf/update_value/type=relationship', array($this, 'update_relationship_field'), 11, 3);
+			add_filter('acf/update_value/type=post_object', array($this, 'update_relationship_field'), 11, 3);
+		} // end public function plugins_loaded
 			
-			function meta_box_data($plugins=array()) {
-				
-				$plugins[] = array(
-					'title' => 'Post2Post for ACF',
-					'screens' => array('acf-field-group', 'edit-acf-field-group'),
-					'doc' => 'https://github.com/Hube2/acf-post2post'
-				);
-				return $plugins;
-				
-			} // end function meta_box
+		public function meta_box_data($plugins=array()) {
+			
+			$plugins[] = array(
+				'title' => 'Post2Post for ACF',
+				'screens' => array('acf-field-group', 'edit-acf-field-group'),
+				'doc' => 'https://github.com/Hube2/acf-post2post'
+			);
+			return $plugins;
+			
+		} // public function meta_box_data
 		
 		public function update_relationship_field($value, $post_id, $field) {
 			$field_name = $field['name'];
