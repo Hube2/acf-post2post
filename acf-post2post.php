@@ -4,7 +4,7 @@
 		Plugin Name: ACF Post-2-Post
 		Plugin URI: https://github.com/Hube2/acf-post2post
 		Description: Two way relationship fields
-		Version: 1.2.4
+		Version: 1.2.5
 		Author: John A. Huebner II
 		Author URI: https://github.com/Hube2
 		GitHub Plugin URI: https://github.com/Hube2/acf-post2post
@@ -25,20 +25,26 @@
 			register_activation_hook(__FILE__, array($this, 'activate'));
 			register_deactivation_hook(__FILE__, array($this, 'deactivate'));
 			add_action('plugins_loaded', array($this, 'plugins_loaded'));
-			add_filter('jh_plugins_list', array($this, 'meta_box_data'));
 		} // end public function __construct
 		
 		public function plugins_loaded() {
 			if (!function_exists('acf_get_setting')) {
+				add_action('admin_init', array($this, 'missing_acf5'));
 				return;
 			}
 			$acf_version = acf_get_setting('version');
 			if (version_compare($acf_version, '5.0.0', '<')) {
+				add_action('admin_init', array($this, 'missing_acf5'));
 				return;
 			}
 			add_filter('acf/update_value/type=relationship', array($this, 'update_relationship_field'), 11, 3);
 			add_filter('acf/update_value/type=post_object', array($this, 'update_relationship_field'), 11, 3);
+			add_filter('jh_plugins_list', array($this, 'meta_box_data'));
 		} // end public function plugins_loaded
+		
+		public function missing_acf5() {
+			deactivate_plugins(plugin_basename( __FILE__ ));
+		} // end public function missing_acf5
 			
 		public function meta_box_data($plugins=array()) {
 			
