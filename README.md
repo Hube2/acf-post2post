@@ -19,8 +19,7 @@ and they have the same name.
 
 * Create a relationship or post object field.
 * The field must be at the top level. It cannot be a subfield of a repeater or a flexible content field.
-* The field name must be the same on all posts. In other words if you want to have different post types be
-* related then you must add a field with the same field name on both post types.
+* The field name must be the same on all posts. In other words if you want to have different post types be related then you must add a field with the same field name on both post types.
 
 When you add a post to a relationship or post object field and the same field name appears on the post added to the relationship then the relationship field on the related post will be updated to include a relationship to the post being edited.
 
@@ -57,14 +56,14 @@ after a value is removed from the existing list the new value is added to the en
 
 ## So why do this?
 
-I did not actually create this pluging to make it easier on the person that's managing a site, although that is
+I did not actually create this plugin to make it easier on the person that's managing a site, although that is
 an added side benifit. The main reason for implementing some way to make relationship and post object fields
-biderectional is the doing reverse relationship queries for ACF is a huge PITA. I completely understand why this is
+biderectional is that doing reverse relationship queries for ACF is a huge PITA. I completely understand why this is
 not built into ACF. If it was built in then Elliot would need to deal with relationship fields in repeaters and
-flex field and nested repeaters. And then there is the problem of relationships with different post types and fields
+flex fields and nested repeaters. And then there is the problem of relationships with different post types and fields
 with different names. It would be a deep dark rabbit hole from which I don't think he'd return. There are too many
 parameters. On the other hand, filters and actions can be created with a finite number of options to do the work that's
-needed. This is just
+needed.
 
 #### Automatic Updates
 Github updater support has been removed. This plugin has been published to WordPress.Org here
@@ -73,7 +72,7 @@ try installing from there.
 
 #### Remove Nag
 You may notice that I've started adding a little nag to my plugins. It's just a box on some pages that lists my
-plugins that you're using with a request do consider making a donation for using them. If you want to disable them
+plugins that you're using with a request to consider making a donation for using them. If you want to disable them
 add the following filter to your functions.php file.
 ```
 add_filter('remove_hube2_nag', '__return_true');
