@@ -4,7 +4,7 @@
 		Plugin Name: ACF Post-2-Post
 		Plugin URI: https://github.com/Hube2/acf-post2post
 		Description: Two way relationship fields
-		Version: 1.2.5
+		Version: 1.2.6
 		Author: John A. Huebner II
 		Author URI: https://github.com/Hube2
 		GitHub Plugin URI: https://github.com/Hube2/acf-post2post
@@ -104,7 +104,7 @@
 				}
 			}
 			$values = maybe_unserialize(get_post_meta($post_id, $field_name, true));
-			if ($values == '') {
+			if ($values === '') {
 				$values = array();
 			}
 			if (!is_array($values)) {
@@ -114,6 +114,7 @@
 				// nothing to delete
 				return;
 			}
+			array_walk($values, 'intval');
 			$new_values = array();
 			foreach ($values as $value) {
 				if ($value != $related_id) {
@@ -122,6 +123,10 @@
 			}
 			if (!count($new_values) && !$array_value) {
 				$new_values = '';
+			} elseif (!$array_value) {
+				$new_values = $new_values[0];
+			} elseif (count($new_values)) {
+				array_walk($new_values, 'strval');
 			}
 			update_post_meta($post_id, $field_name, $new_values);
 			update_post_meta($post_id, '_'.$field_name, $field['key']);
@@ -157,6 +162,7 @@
 			if (!is_array($value)) {
 				$value = array($value);
 			}
+			array_walk($value, 'intval');
 			if (($max_posts == 0 || count($value) < $max_posts) &&
 					!in_array($related_id, $value)) {
 				$value[] = $related_id;
@@ -182,6 +188,8 @@
 			} // end if else
 			if (!$array_value) {
 				$value = $value[0];
+			} else {
+				array_walk($value, 'strval');
 			}
 			update_post_meta($post_id, $field_name, $value);
 			update_post_meta($post_id, '_'.$field_name, $field['key']);
