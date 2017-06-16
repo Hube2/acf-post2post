@@ -1,0 +1,28 @@
+
+{
+	"name": "hube2/acf-post2post",
+	"type": "wordpress-plugin",
+	"license": "MIT",
+	"description": "Creates two way (bidirectional) relationships in Advanced Custom Fields",
+	"homepage": "https://github.com/Hube2/acf-post2post",
+	"support": {
+		"issues": "https://github.com/Hube2/acf-post2post/issues",
+		"source": "https://github.com/Hube2/acf-post2post.git"
+	},
+	"authors": [
+		{
+			"name": "John A. Huebner II",
+			"homepage": "https://github.com/Hube2"
+		}
+	],
+	"keywords": [
+		"acf",
+		"advanced custom fields",
+		"Post 2 Post"
+	],
+	"prefer-stable": true,
+	"require": {
+		"composer/installers": "^1.0",
+		"php": ">=5.4.0"
+	}
+}
