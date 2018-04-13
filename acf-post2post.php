@@ -24,7 +24,7 @@
 		public function __construct() {
 			register_activation_hook(__FILE__, array($this, 'activate'));
 			register_deactivation_hook(__FILE__, array($this, 'deactivate'));
-			add_action('plugins_loaded', array($this, 'plugins_loaded'));
+			add_action('after_setup_theme', array($this, 'plugins_loaded'));
 		} // end public function __construct
 		
 		public function plugins_loaded() {
