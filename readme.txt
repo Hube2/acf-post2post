@@ -3,7 +3,7 @@ Contributors: Hube2
 Tags: acf, advanced custom fields, add on, bidirectional, 2 way, two way, relationship
 Requires at least: 4.0
 Tested up to: 4.9 
-Stable tag: 1.2.7
+Stable tag: 1.2.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -88,6 +88,9 @@ add_filter('remove_hube2_nag', '__return_true');
 `
 
 == Changelog ==
+
+= 1.2.8 =
+* changed from plugins_loaded to after_setup_theme for checking if ACF >= 5 is installed to allow for ACF being installed in themes
 
 = 1.2.7 =
 * replace php array_walk() w/array_map() to correct issue with str/int conversion of IDs
