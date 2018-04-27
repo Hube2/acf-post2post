@@ -58,6 +58,11 @@
 		} // public function meta_box_data
 		
 		public function update_relationship_field($value, $post_id, $field) {
+			$update = true;
+			$update = apply_filters('acf/post2post/update_relationships/key='.$field['key'], $update);
+			if ($update) {
+				return $value;
+			}
 			$field_name = $field['name'];
 			$previous = maybe_unserialize(get_post_meta($post_id, $field_name, true));
 			if ($previous === '') {
