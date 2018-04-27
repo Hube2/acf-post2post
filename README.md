@@ -54,6 +54,15 @@ or 1 then new values will overwrite older values. The default value of this sett
 `type` = 'first' or 'last'. Which of the existing values should be removed, the first one added or the last. The default value is 'first'.  
 after a value is removed from the existing list the new value is added to the end of the list.
 
+## Field Exeptions
+
+You can disable automatic bidirectional relationships for specific field keys using the filter
+```
+// field_XXXXXXXX = the field key of the field
+// you want to disable bidirectional relationships for
+add_filter('acf/post2post/update_relationships/key=field_XXXXXXXX', '__return_false');
+```
+
 ## So why do this?
 
 I did not actually create this plugin to make it easier on the person that's managing a site, although that is

@@ -80,6 +80,17 @@ Each element of the $settings array is an array. The index of the array is the f
 
 after a value is removed from the existing list the new value is added to the end of the list.
 
+
+
+== Field Exeptions ==
+
+You can disable automatic bidirectional relationships for specific field keys using the filter
+`
+// field_XXXXXXXX = the field key of the field
+// you want to disable bidirectional relationships for
+add_filter('acf/post2post/update_relationships/key=field_XXXXXXXX', '__return_false');
+`
+
 == Remove Nag ==
 
 If you would like to remove my little nag that appears on some admin pages add the following to your functions.php file
