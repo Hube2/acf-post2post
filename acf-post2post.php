@@ -60,7 +60,7 @@
 		public function update_relationship_field($value, $post_id, $field) {
 			$update = true;
 			$update = apply_filters('acf/post2post/update_relationships/key='.$field['key'], $update);
-			if ($update) {
+			if (!$update) {
 				return $value;
 			}
 			$field_name = $field['name'];
