@@ -3,7 +3,7 @@ Contributors: Hube2
 Tags: acf, advanced custom fields, add on, bidirectional, 2 way, two way, relationship
 Requires at least: 4.0
 Tested up to: 5.1
-Stable tag: 1.3.2
+Stable tag: 1.4.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -89,16 +89,36 @@ You can disable automatic bidirectional relationships for specific field keys us
 // field_XXXXXXXX = the field key of the field
 // you want to disable bidirectional relationships for
 add_filter('acf/post2post/update_relationships/key=field_XXXXXXXX', '__return_false');
+
+
+== After update hooks ==
+There are two actions that can be used after a post is updated and passes a single post ID. Please make sure you see the subtle difference in these two hooks.
+
+The first is run after each related post is updated
+`
+add_action('acf/post2post/relationship_updated', 'my_post_updated_action');
+function my_post_updated_action($post_id) {
+  // $post_id == the post ID that was updated
+  // do something after the related post is updated
+}
 `
 
-== Remove Nag ==
-
-If you would like to remove my little nag that appears on some admin pages add the following to your functions.php file
+The second is run after all posts are updated and passes an array of post IDs.
 `
-add_filter('remove_hube2_nag', '__return_true');
+add_action('acf/post2post/relationships_updated', 'my_post_updated_action');
+function my_post_updated_action($posts) {
+  // $posts == and array of post IDs that were updated
+	// do something to all posts after update
+	foreach ($posts as $post_id) {
+	  // do something to post
+	}
+}
 `
 
 == Changelog ==
+
+= 1.4.0 =
+* added actions after updates to related posts to allow 3rd party integrations
 
 = 1.3.2 =
 * removed donation nag

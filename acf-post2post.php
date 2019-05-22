@@ -4,7 +4,7 @@
 		Plugin Name: ACF Post-2-Post
 		Plugin URI: https://github.com/Hube2/acf-post2post
 		Description: Two way relationship fields
-		Version: 1.3.2
+		Version: 1.4.0
 		Author: John A. Huebner II
 		Author URI: https://github.com/Hube2
 		GitHub Plugin URI: https://github.com/Hube2/acf-post2post
@@ -51,6 +51,7 @@
 			if (!$update) {
 				return $value;
 			}
+			$updated_posts = array();
 			$field_name = $field['name'];
 			$previous = maybe_unserialize(get_post_meta($post_id, $field_name, true));
 			if ($previous === '') {
@@ -72,13 +73,18 @@
 				foreach ($previous as $related_id) {
 					if (!in_array($related_id, $new)) {
 						$this->remove_relationship($related_id, $field_name, $post_id);
+						$updated_posts[] = $related_id;
 					}
 				}
 			}
 			if (count($new)) {
 				foreach ($new as $related_id) {
 					$this->add_relationship($related_id, $field_name, $post_id);
+					$updated_posts[] = $related_id;
 				}
+			}
+			if (count($updated_posts)) {
+				do_action('acf/post2post/relationships_updated', $updated_posts);
 			}
 			return $value;
 		} // end public function update_relationship_field
@@ -123,6 +129,7 @@
 			}
 			update_post_meta($post_id, $field_name, $new_values);
 			update_post_meta($post_id, '_'.$field_name, $field['key']);
+			do_action('acf/post2post/relationship_updated', $post_id);
 		} // end private function remove_relationship
 		
 		private function add_relationship($post_id, $field_name, $related_id) {
@@ -186,6 +193,7 @@
 			}
 			update_post_meta($post_id, $field_name, $value);
 			update_post_meta($post_id, '_'.$field_name, $field['key']);
+			do_action('acf/post2post/relationship_updated', $post_id);
 		} // end private function add_relationship
 		
 		public function get_field($post_id, $field_name) {

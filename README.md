@@ -63,26 +63,37 @@ You can disable automatic bidirectional relationships for specific field keys us
 add_filter('acf/post2post/update_relationships/key=field_XXXXXXXX', '__return_false');
 ```
 
+## After update hooks
+There are two actions that can be used after a post is updated and passes a single post ID. Please make sure you see the subtle difference in these two hooks.
+
+The first is run after each related post is updated
+```
+add_action('acf/post2post/relationship_updated', 'my_post_updated_action');
+function my_post_updated_action($post_id) {
+  // $post_id == the post ID that was updated
+  // do something after the related post is updated
+}
+```
+
+The second is run after all posts are updated and passes an array of post IDs.
+```
+add_action('acf/post2post/relationships_updated', 'my_post_updated_action');
+function my_post_updated_action($posts) {
+  // $posts == and array of post IDs that were updated
+	// do something to all posts after update
+	foreach ($posts as $post_id) {
+	  // do something to post
+	}
+}
+```
+
 ## So why do this?
 
-I did not actually create this plugin to make it easier on the person that's managing a site, although that is
-an added side benifit. The main reason for implementing some way to make relationship and post object fields
-biderectional is that doing reverse relationship queries for ACF is a huge PITA. I completely understand why this is
-not built into ACF. If it was built in then Elliot would need to deal with relationship fields in repeaters and
-flex fields and nested repeaters. And then there is the problem of relationships with different post types and fields
-with different names. It would be a deep dark rabbit hole from which I don't think he'd return. There are too many
-parameters. On the other hand, filters and actions can be created with a finite number of options to do the work that's
-needed.
+I did not actually create this plugin to make it easier on the person that's managing a site, although that is an added side benifit. The main reason for implementing some way to make relationship and post object fields biderectional is that doing reverse relationship queries for ACF is a huge PITA. I completely understand why this is not built into ACF. If it was built in then Elliot would need to deal with relationship fields in repeaters and
+flex fields and nested repeaters. And then there is the problem of relationships with different post types and fields with different names. It would be a deep dark rabbit hole from which I don't think he'd return. There are too many parameters and possibilities. On the other hand, filters and actions can be created with a finite number of options to do the work that's needed.
 
 #### Automatic Updates
 Github updater support has been removed. This plugin has been published to WordPress.Org here
 https://wordpress.org/plugins/post-2-post-for-acf/. If you are having problems updating please
 try installing from there. 
 
-#### Remove Nag
-You may notice that I've started adding a little nag to my plugins. It's just a box on some pages that lists my
-plugins that you're using with a request to consider making a donation for using them. If you want to disable them
-add the following filter to your functions.php file.
-```
-add_filter('remove_hube2_nag', '__return_true');
-```
