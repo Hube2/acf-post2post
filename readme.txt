@@ -89,6 +89,7 @@ You can disable automatic bidirectional relationships for specific field keys us
 // field_XXXXXXXX = the field key of the field
 // you want to disable bidirectional relationships for
 add_filter('acf/post2post/update_relationships/key=field_XXXXXXXX', '__return_false');
+`
 
 
 == After update hooks ==
