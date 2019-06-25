@@ -21,6 +21,9 @@
 	
 	class acf_post2post {
 		
+		// attempt to detect infinite loop
+		private $posts_updated = array();
+		
 		public function __construct() {
 			register_activation_hook(__FILE__, array($this, 'activate'));
 			register_deactivation_hook(__FILE__, array($this, 'deactivate'));
@@ -48,9 +51,10 @@
 		public function update_relationship_field($value, $post_id, $field) {
 			$update = true;
 			$update = apply_filters('acf/post2post/update_relationships/key='.$field['key'], $update);
-			if (!$update) {
+			if (!$update || in_array($post_id, $this->posts_updated)) {
 				return $value;
 			}
+			$this->posts_updated[] = $post_id;
 			$updated_posts = array();
 			$field_name = $field['name'];
 			$previous = maybe_unserialize(get_post_meta($post_id, $field_name, true));
@@ -127,8 +131,9 @@
 			} elseif (count($new_values)) {
 				$new_values = array_map('strval', $new_values);
 			}
-			update_post_meta($post_id, $field_name, $new_values);
-			update_post_meta($post_id, '_'.$field_name, $field['key']);
+			update_field($field['key'], $new_values, $post_id);
+			//update_post_meta($post_id, $field_name, $new_values);
+			//update_post_meta($post_id, '_'.$field_name, $field['key']);
 			do_action('acf/post2post/relationship_updated', $post_id);
 		} // end private function remove_relationship
 		
@@ -182,7 +187,7 @@
 						$remove = array_pop($value);
 					}
 					// remove this relationship from the post that was just removed
-					$this->remove_relationship(intval($remove), $field_name, $post_id);
+					//$this->remove_relationship(intval($remove), $field_name, $post_id);
 					$value[] = $related_id;
 				} // end field overwrite
 			} // end if else
@@ -191,8 +196,9 @@
 			} else {
 				$value = array_map('strval', $value);
 			}
-			update_post_meta($post_id, $field_name, $value);
-			update_post_meta($post_id, '_'.$field_name, $field['key']);
+			update_field($field['key'], $value, $post_id);
+			//update_post_meta($post_id, $field_name, $value);
+			//update_post_meta($post_id, '_'.$field_name, $field['key']);
 			do_action('acf/post2post/relationship_updated', $post_id);
 		} // end private function add_relationship
 		
