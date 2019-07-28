@@ -84,7 +84,7 @@
 				}
 			}
 			if (count($updated_posts)) {
-				do_action('acf/post2post/relationships_updated', $updated_posts);
+				do_action('acf/post2post/relationships_updated', $updated_posts, $field_name, $new, $previous);
 			}
 			return $value;
 		} // end public function update_relationship_field
@@ -129,7 +129,7 @@
 			}
 			update_post_meta($post_id, $field_name, $new_values);
 			update_post_meta($post_id, '_'.$field_name, $field['key']);
-			do_action('acf/post2post/relationship_updated', $post_id);
+			do_action('acf/post2post/relationship_updated', $post_id, $field_name, $new_values);
 		} // end private function remove_relationship
 		
 		private function add_relationship($post_id, $field_name, $related_id) {
@@ -193,7 +193,7 @@
 			}
 			update_post_meta($post_id, $field_name, $value);
 			update_post_meta($post_id, '_'.$field_name, $field['key']);
-			do_action('acf/post2post/relationship_updated', $post_id);
+			do_action('acf/post2post/relationship_updated', $post_id, $field_name, $value);
 		} // end private function add_relationship
 		
 		public function get_field($post_id, $field_name) {
