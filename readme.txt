@@ -118,6 +118,9 @@ function my_post_updated_action($posts) {
 
 == Changelog ==
 
+= 1.4.1 =
+* add context to action hooks
+
 = 1.4.0 =
 * added actions after updates to related posts to allow 3rd party integrations
 
