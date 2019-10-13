@@ -120,6 +120,7 @@ function my_post_updated_action($posts) {
 
 = 1.4.1 =
 * Corrected logic error in overwrite
+* add context to action hooks
 
 = 1.4.0 =
 * added actions after updates to related posts to allow 3rd party integrations
