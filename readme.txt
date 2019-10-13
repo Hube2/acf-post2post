@@ -3,7 +3,7 @@ Contributors: Hube2
 Tags: acf, advanced custom fields, add on, bidirectional, 2 way, two way, relationship
 Requires at least: 4.0
 Tested up to: 5.1
-Stable tag: 1.4.0
+Stable tag: 1.4.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -117,6 +117,9 @@ function my_post_updated_action($posts) {
 `
 
 == Changelog ==
+
+= 1.4.1 =
+* Corrected logic error in overwrite
 
 = 1.4.0 =
 * added actions after updates to related posts to allow 3rd party integrations

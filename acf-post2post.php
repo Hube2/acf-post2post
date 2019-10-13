@@ -4,7 +4,7 @@
 		Plugin Name: ACF Post-2-Post
 		Plugin URI: https://github.com/Hube2/acf-post2post
 		Description: Two way relationship fields
-		Version: 1.4.0
+		Version: 1.4.1
 		Author: John A. Huebner II
 		Author URI: https://github.com/Hube2
 		GitHub Plugin URI: https://github.com/Hube2/acf-post2post
@@ -149,10 +149,10 @@
 				if (!$field['multiple']) {
 					$max_posts = 1;
 					$array_value = false;
-				} elseif ($field['type'] == 'relationship') {
-					if ($field['max']) {
-						$max_posts = $field['max'];
-					}
+				}
+			} elseif ($field['type'] == 'relationship') {
+				if ($field['max']) {
+					$max_posts = $field['max'];
 				}
 			}
 			$value = maybe_unserialize(get_post_meta($post_id, $field_name, true));
