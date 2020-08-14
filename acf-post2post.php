@@ -4,7 +4,7 @@
 		Plugin Name: ACF Post-2-Post
 		Plugin URI: https://github.com/Hube2/acf-post2post
 		Description: Two way relationship fields
-		Version: 1.4.1
+		Version: 1.5.0
 		Author: John A. Huebner II
 		Author URI: https://github.com/Hube2
 		GitHub Plugin URI: https://github.com/Hube2/acf-post2post
@@ -183,7 +183,15 @@
 					}
 					// remove this relationship from the post that was just removed
 					$this->remove_relationship(intval($remove), $field_name, $post_id);
-					$value[] = $related_id;
+					$append_where = 'append';
+					$append_where = apply_filters('acf/post2post/append-prepend', $append_where); // all field
+					$append_where = apply_filters('acf/post2post/append-prepend/name='.$field['name'], $append_where); // field name
+					$append_where = apply_filters('acf/post2post/append-prepend/key='.$field['key'], $append_where); // field key
+					if ($append_where == 'append') {
+						$value[] = $related_id;
+					} else {
+						array_unshift($value, $related_id);
+					}
 				} // end field overwrite
 			} // end if else
 			if (!$array_value) {
