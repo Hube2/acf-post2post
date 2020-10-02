@@ -4,10 +4,9 @@
 		Plugin Name: ACF Post-2-Post
 		Plugin URI: https://github.com/Hube2/acf-post2post
 		Description: Two way relationship fields
-		Version: 1.5.0
+		Version: 1.5.1
 		Author: John A. Huebner II
 		Author URI: https://github.com/Hube2
-		GitHub Plugin URI: https://github.com/Hube2/acf-post2post
 		License: GPL v2 or later
 		
 		Automatic Two Way (Bidirectional) Relationships with ACF5 
