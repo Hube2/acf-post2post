@@ -4,7 +4,7 @@
 		Plugin Name: ACF Post-2-Post
 		Plugin URI: https://github.com/Hube2/acf-post2post
 		Description: Two way relationship fields
-		Version: 1.5.1
+		Version: 1.5.2
 		Author: John A. Huebner II
 		Author URI: https://github.com/Hube2
 		License: GPL v2 or later
@@ -95,6 +95,10 @@
 				$related_id = the relationship to remove 
 			*/
 			$field = $this->get_field($post_id, $field_name);
+			if (!$field) {
+				// field not found attached to this post
+				return;
+			}
 			$array_value = true;
 			if ($field['type'] == 'post_object') {
 				if (!$field['multiple']) {
