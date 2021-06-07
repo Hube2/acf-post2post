@@ -168,7 +168,15 @@
 			$value = array_map('intval', $value);
 			if (($max_posts == 0 || count($value) < $max_posts) &&
 					!in_array($related_id, $value)) {
-				$value[] = $related_id;
+						$append_where = 'append';
+						$append_where = apply_filters('acf/post2post/append-prepend', $append_where); // all field
+						$append_where = apply_filters('acf/post2post/append-prepend/name='.$field['name'], $append_where); // field name
+						$append_where = apply_filters('acf/post2post/append-prepend/key='.$field['key'], $append_where); // field key
+						if ($append_where == 'append') {
+							$value[] = $related_id;
+						} else {
+							array_unshift($value, $related_id);
+						}
 			} elseif ($max_posts > 0) {
 				$overwrite_settings = apply_filters('acf-post2post/overwrite-settings', array());
 				if (isset($overwrite_settings[$field_name]) && 
