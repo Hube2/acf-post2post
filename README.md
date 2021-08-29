@@ -74,7 +74,7 @@ When doing this the field exceptions filter works in reverse and you must use th
 
 ```
 // field_XXXXXXXX = the field key of the field
-// you want to disable bidirectional relationships for
+// you want to enable bidirectional relationships for
 add_filter('acf/post2post/update_relationships/key=field_XXXXXXXX', '__return_true');
 ```
 
