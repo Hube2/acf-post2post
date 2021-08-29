@@ -66,8 +66,6 @@ add_filter('acf/post2post/update_relationships/key=field_XXXXXXXX', '__return_fa
 ## Disable All Fields
 You can disable bidirectional updates using the following code
 ```
-// field_XXXXXXXX = the field key of the field
-// you want to disable bidirectional relationships for
 add_filter('acf/post2post/update_relationships/default', '__return_false');
 ```
 When doing this the field exceptions filter works in reverse and you must use that filter to enable fields that you want bidirectionality for, like this
