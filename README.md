@@ -63,6 +63,23 @@ You can disable automatic bidirectional relationships for specific field keys us
 add_filter('acf/post2post/update_relationships/key=field_XXXXXXXX', '__return_false');
 ```
 
+## Disable All Fields
+You can disable bidirectional updates using the following code
+```
+// field_XXXXXXXX = the field key of the field
+// you want to disable bidirectional relationships for
+add_filter('acf/post2post/update_relationships/default', '__return_false');
+```
+When doing this the field exceptions filter works in reverse and you must use that filter to enable fields that you want bidirectionality for, like this
+
+```
+// field_XXXXXXXX = the field key of the field
+// you want to disable bidirectional relationships for
+add_filter('acf/post2post/update_relationships/key=field_XXXXXXXX', '__return_true');
+```
+
+
+
 ## After update hooks
 There are two actions that can be used after a post is updated and passes a single post ID. Please make sure you see the subtle difference in these two hooks.
 

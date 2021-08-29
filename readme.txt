@@ -2,8 +2,8 @@
 Contributors: Hube2
 Tags: acf, advanced custom fields, add on, bidirectional, 2 way, two way, relationship
 Requires at least: 4.0
-Tested up to: 5.5
-Stable tag: 1.6.0
+Tested up to: 5.8
+Stable tag: 1.7.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -117,6 +117,9 @@ function my_post_updated_action($posts) {
 `
 
 == Changelog ==
+
+= 1.7.0 =
+* Added filter to allow disabling all fields so that specific fields can be enabled
 
 = 1.6.0 =
 * Added filter to allow specifying append or prepend new relationship when not overwriting
