@@ -2,7 +2,7 @@
 Contributors: Hube2
 Tags: acf, advanced custom fields, add on, bidirectional, 2 way, two way, relationship
 Requires at least: 4.0
-Tested up to: 5.8
+Tested up to: 6.1
 Stable tag: 1.7.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -12,11 +12,11 @@ Automatic Two Way (Bidirectional) Relationships with ACF5
 
 == Description ==
 
-***This is an add on plugin for Advanced Custom Fields (ACF) Version 5.***
+***This is an add on plugin for Advanced Custom Fields (ACF) >= Version 5.***
 
 ***This plugin will not work with ACF Version 4.***
 
-This plugin will not provide any functionality if ACF5 is not installed.***
+This plugin will not provide any functionality if ACF >=5 is not installed.***
 
 This plugin does not create a new type of field or any admin interface. This plugin when used as 
 explained below makes the existing ACF Relationship and Post Object fields work bi-directionaly, 
